@@ -4,7 +4,6 @@ class BWFAN_WC_Cart_Shipping_State extends Cart_Merge_Tag {
 
 	private static $instance = null;
 
-
 	public function __construct() {
 		$this->tag_name        = 'cart_shipping_state';
 		$this->tag_description = __( 'Cart Shipping State', 'wp-marketing-automations' );
@@ -32,7 +31,6 @@ class BWFAN_WC_Cart_Shipping_State extends Cart_Merge_Tag {
 		}
 
 		$cart_details = BWFAN_Merge_Tag_Loader::get_data( 'cart_details' );
-
 		if ( empty( $cart_details ) ) {
 			$abandoned_id = BWFAN_Merge_Tag_Loader::get_data( 'cart_abandoned_id' );
 			$cart_details = BWFAN_Model_Abandonedcarts::get( $abandoned_id );
@@ -41,8 +39,8 @@ class BWFAN_WC_Cart_Shipping_State extends Cart_Merge_Tag {
 		if ( empty( $cart_details ) ) {
 			return $this->parse_shortcode_output( '', $attr );
 		}
-		
-		$field_value  = $this->get_cart_value( 'shipping_state', $cart_details );
+
+		$field_value = $this->get_cart_value( 'shipping_state', $cart_details );
 
 		return $this->parse_shortcode_output( $field_value, $attr );
 	}
@@ -73,8 +71,6 @@ class BWFAN_WC_Cart_Shipping_State extends Cart_Merge_Tag {
 
 		return $state;
 	}
-
-
 }
 
 /**

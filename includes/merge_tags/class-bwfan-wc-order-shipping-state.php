@@ -38,15 +38,17 @@ class BWFAN_WC_Order_Shipping_State extends BWFAN_Merge_Tag {
 		}
 
 		$order_id = BWFAN_Merge_Tag_Loader::get_data( 'order_id' );
-		$order 	= wc_get_order( $order_id );
-
+		$order    = wc_get_order( $order_id );
 		if ( ! $order instanceof WC_Order ) {
 			return $this->parse_shortcode_output( '', $attr );
 		}
 
-		$state   = BWFAN_Woocommerce_Compatibility::get_order_shipping_state( $order );
-		$country = BWFAN_Woocommerce_Compatibility::get_shipping_country_from_order( $order );
+		$state = BWFAN_Woocommerce_Compatibility::get_order_shipping_state( $order );
+		if ( isset( $attr['format'] ) && 'state_code' === $attr['format'] ) {
+			return $this->parse_shortcode_output( $state, $attr );
+		}
 
+		$country = BWFAN_Woocommerce_Compatibility::get_shipping_country_from_order( $order );
 		if ( ! empty( $country ) && ! empty( $state ) ) {
 			$states = WC()->countries->get_states( $country );
 			$state  = ( is_array( $states ) && isset( $states[ $state ] ) ) ? $states[ $state ] : $state;
@@ -62,6 +64,32 @@ class BWFAN_WC_Order_Shipping_State extends BWFAN_Merge_Tag {
 	 */
 	public function get_dummy_preview() {
 		return 'NE';
+	}
+
+	public function get_setting_schema() {
+		$options = [
+			[
+				'value' => 'state_name',
+				'label' => __( 'State Name', 'wp-marketing-automations' ),
+			],
+			[
+				'value' => 'state_code',
+				'label' => __( 'State Code', 'wp-marketing-automations' ),
+			],
+		];
+
+		return [
+			[
+				'id'          => 'format',
+				'type'        => 'select',
+				'options'     => $options,
+				'label'       => __( 'Select Format', 'wp-marketing-automations' ),
+				"class"       => 'bwfan-input-wrapper',
+				"placeholder" => 'Select',
+				"required"    => true,
+				"description" => ""
+			],
+		];
 	}
 }
 

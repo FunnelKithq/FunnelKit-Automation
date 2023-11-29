@@ -7577,7 +7577,13 @@ class BWFAN_Common {
 		$batch_size     = 20;
 		while ( ( time() - $start_time ) < 10 ) {
 			/** Get first 20 automation contacts */
-			$a_cids       = ( count( $a_cids ) > $batch_size ) ? array_slice( $a_cids, 0, $batch_size ) : $a_cids;
+			$a_cids = ( count( $a_cids ) > $batch_size ) ? array_slice( $a_cids, 0, $batch_size ) : $a_cids;
+			if ( empty( $a_cids ) ) {
+				delete_option( $option_key );
+
+				return;
+			}
+
 			$selected_ids = implode( ', ', $a_cids );
 
 			global $wpdb;

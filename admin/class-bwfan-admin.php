@@ -254,7 +254,7 @@ class BWFAN_Admin {
 		}
 		add_menu_page( false, $title, $capability, 'autonami', array( $this, 'autonami_page' ), '', 59 );
 
-		add_submenu_page( 'autonami', __( 'Dashboards', 'wp-marketing-automations' ), __( 'Dashboards', 'wp-marketing-automations' ), $capability, 'autonami', false, 10 );
+		add_submenu_page( 'autonami', __( 'Dashboard', 'wp-marketing-automations' ), __( 'Dashboard', 'wp-marketing-automations' ), $capability, 'autonami', false, 10 );
 
 		if ( true === bwfan_is_autonami_pro_active() ) {
 			add_submenu_page( 'autonami', 'Contacts', 'Contacts', $capability, 'autonami&path=/contacts', array( $this, 'autonami_page' ), 20 );
@@ -276,7 +276,10 @@ class BWFAN_Admin {
 		), 24 );
 
 		if ( BWFAN_Common::is_automation_v1_active() ) {
-			add_submenu_page( 'autonami', 'Automations', 'Automations <span style="background-color:#ece6e4; color: #000;white-space: nowrap; border-radius:10px;margin-left:2px;font-size:10px;padding:3px 6px;">Legacy</span>', $capability, 'autonami-automations', array( $this, 'autonami_automations_page' ), 25 );
+			add_submenu_page( 'autonami', 'Automations', 'Automations <span style="background-color:#ece6e4; color: #000;white-space: nowrap; border-radius:10px;margin-left:2px;font-size:10px;padding:3px 6px;">Legacy</span>', $capability, 'autonami-automations', array(
+				$this,
+				'autonami_automations_page'
+			), 25 );
 		}
 
 		if ( true === bwfan_is_autonami_pro_active() ) {
@@ -311,32 +314,39 @@ class BWFAN_Admin {
 
 		/** Adding Buy Pro sub menu when pro not activated */
 		if ( false === bwfan_is_autonami_pro_active() ) {
+			$url  = "https://funnelkit.com/autonami-lite-upgrade/";
 			$link = add_query_arg( [
 				'utm_source'   => 'WordPress',
 				'utm_medium'   => 'Admin+Menu',
 				'utm_campaign' => 'Lite+Plugin'
-			], "https://funnelkit.com/autonami-lite-upgrade/" );
+			], $url );
 			add_submenu_page( 'autonami', '', '<a href="' . $link . '" style="background-color:#1DA867; color:white;" target="_blank"><strong>' . __( 'Upgrade to Pro', 'wp-marketing-automations' ) . '</strong></a>', $capability, '', function () {
 			}, 60 );
 
-			/**
-			 * Sale promotional menus
-			 */
-			if ( strtotime( gmdate( 'c' ) ) < 1669438800 ) {
-				$link = add_query_arg( [
+			$time = strtotime( gmdate( 'c' ) );
+			if ( $time >= 1700456400 && $time < 1701493200 ) {
+				$utm_campaign = 'CM' . date( 'Y' );
+				$title        = "Cyber Monday";
+				if ( $time < 1701061200 ) {
+					$utm_campaign = 'BF' . date( 'Y' );
+					$title        = "Black Friday";
+				}
+				$title .= " 🔥";
+				$link  = add_query_arg( [
 					'utm_source'   => 'WordPress',
 					'utm_medium'   => 'Admin+Menu+FKA',
-					'utm_campaign' => 'BF2022'
-				], "https://funnelkit.com/exclusive-offer/" );
-				add_submenu_page( 'autonami', '', '<a href="' . $link . '"  target="_blank">' . __( 'Black Friday!', 'wp-marketing-automations' ) . '</a>', $capability, 'upgrade_pro', function () {
+					'utm_campaign' => $utm_campaign
+				], $url );
+				add_submenu_page( 'autonami', '', '<a href="' . $link . '"  target="_blank">' . $title . '</a>', $capability, 'upgrade_pro', function () {
 				}, 61 );
-			} elseif ( strtotime( gmdate( 'c' ) ) < 1670043600 ) {
-				$link = add_query_arg( [
+			} elseif ( $time >= 1702270800 && $time < 1702357200 ) {
+				$link  = add_query_arg( [
 					'utm_source'   => 'WordPress',
 					'utm_medium'   => 'Admin+Menu+FKA',
-					'utm_campaign' => 'CM2022'
-				], "https://funnelkit.com/exclusive-offer/" );
-				add_submenu_page( 'autonami', '', '<a href="' . $link . '"  target="_blank">' . __( 'Cyber Monday!', 'wp-marketing-automations' ) . '</a>', $capability, 'upgrade_pro', function () {
+					'utm_campaign' => 'GM' . date( 'Y' )
+				], $url );
+				$title = "Green Monday 🔥";
+				add_submenu_page( 'autonami', '', '<a href="' . $link . '"  target="_blank">' . $title . '</a>', $capability, 'upgrade_pro', function () {
 				}, 61 );
 			}
 		}

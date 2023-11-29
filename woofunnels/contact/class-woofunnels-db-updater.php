@@ -59,6 +59,7 @@ class WooFunnels_DB_Updater {
 
 		/** Creating contact for new orders */
 		add_action( 'woocommerce_checkout_order_processed', array( $this, 'woofunnels_wc_order_create_contact' ), 10, 3 );
+		add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'wc_order_create_contact_blocks' ) );
 
 		/** Creating updating customer on order statuses paid */
 		add_action( 'woocommerce_order_status_changed', array( $this, 'woofunnels_status_change_create_update_contact_customer' ), 10, 3 );
@@ -343,7 +344,6 @@ class WooFunnels_DB_Updater {
 	 * @param $order WC_Order
 	 */
 	public function woofunnels_wc_order_create_contact( $order_id, $posted_data, $order ) {
-
 		if ( apply_filters( 'bwf_woofunnel_skip_sub_order', true ) && wp_get_post_parent_id( $order_id ) ) {
 			$order = wc_get_order( $order->get_parent_id() );
 		}
@@ -394,6 +394,20 @@ class WooFunnels_DB_Updater {
 
 		$order->update_meta_data( '_woofunnel_cid', $bwf_contact->get_id() );
 		$order->save();
+	}
+
+	/**
+	 * Creating BWF contact on order created from Checkout Block/Store API
+	 *
+	 * @param $order WC_Order
+	 *
+	 * @return void
+	 */
+	public function wc_order_create_contact_blocks( $order ) {
+		if ( ! $order instanceof WC_Order ) {
+			return;
+		}
+		$this->woofunnels_wc_order_create_contact( $order->get_id(), [], $order );
 	}
 
 	/**

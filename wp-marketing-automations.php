@@ -3,14 +3,14 @@
  * Plugin Name: FunnelKit Automations
  * Plugin URI: https://funnelkit.com/wordpress-marketing-automation-autonami/
  * Description: Recover lost revenue with Abandoned Cart Recovery for WooCommerce. Increase retention with Post Purchase Follow-Up Emails. Send beautiful Newsletters.
- * Version: 2.7.0
+ * Version: 2.7.1
  * Author: FunnelKit
  * Author URI: https://funnelkit.com
  * License: GPLv3 or later
  * License URI: http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain: wp-marketing-automations
  * Requires at least: 5.0
- * Tested up to: 6.4.0
+ * Tested up to: 6.4.1
  * WooFunnels: true
  *
  * FunnelKit Automations is free software.
@@ -172,12 +172,12 @@ final class BWFAN_Core {
 	 * Defining constants
 	 */
 	public function define_plugin_properties() {
-		define( 'BWFAN_VERSION', '2.7.0' );
+		define( 'BWFAN_VERSION', '2.7.1' );
 		define( 'BWFAN_MIN_PRO_VERSION', '2.7.0' );
 		define( 'BWFAN_MIN_WC_VERSION', '3.0' );
 		define( 'BWFAN_SLUG', 'bwfan' );
 		define( 'BWFAN_FULL_NAME', 'FunnelKit Automations' );
-		define( 'BWFAN_BWF_VERSION', '1.10.11.19' );
+		define( 'BWFAN_BWF_VERSION', '1.10.11.20' );
 		define( 'BWFAN_PLUGIN_FILE', __FILE__ );
 		define( 'BWFAN_PLUGIN_DIR', __DIR__ );
 		define( 'BWFAN_TEMPLATE_DIR', plugin_dir_path( BWFAN_PLUGIN_FILE ) . 'templates' );

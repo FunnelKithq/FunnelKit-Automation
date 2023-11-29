@@ -21,6 +21,7 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 
 				add_action( 'wffn_optin_form_submit', array( $this, 'update_optin_tracking_data' ), 10, 2 );
 				add_action( 'woocommerce_checkout_order_processed', array( $this, 'update_order_tracking_data' ), 9999, 1 );
+				add_action( 'woocommerce_store_api_checkout_order_processed', array( $this, 'update_order_tracking_data' ), 9999 );
 				add_filter( 'bwf_add_db_table_schema', array( $this, 'create_db_tables' ), 10, 2 );
 				add_action( 'add_meta_boxes', array( $this, 'add_single_order_meta_box' ), 50, 2 );
 			}
@@ -155,13 +156,16 @@ if ( ! class_exists( 'BWF_Ecomm_Tracking_Common' ) ) {
 		}
 
 		/**
-		 * @param $order_id
+		 * @param $order - order object or order id
 		 *
 		 * @return void
 		 */
-		public function update_order_tracking_data( $order_id ) {//phpcs:ignore WordPressVIPMinimum.Hooks.AlwaysReturnInFilter.MissingReturnStatement
-			$order = apply_filters( 'bwf_tracking_insert_order', wc_get_order( $order_id ) );
+		public function update_order_tracking_data( $order ) {//phpcs:ignore WordPressVIPMinimum.Hooks.AlwaysReturnInFilter.MissingReturnStatement
+			if ( ! $order instanceof WC_Order ) {
+				$order = wc_get_order( $order );
+			}
 
+			$order = apply_filters( 'bwf_tracking_insert_order', $order );
 			if ( ! $order instanceof WC_Order ) {
 				return;
 			}

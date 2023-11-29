@@ -8,7 +8,7 @@
  */
 
 
-define( 'BWF_VERSION', '1.10.11.19' );
+define( 'BWF_VERSION', '1.10.11.20' );
 
 define( 'BWF_DB_VERSION', '1.0.5' );
 
