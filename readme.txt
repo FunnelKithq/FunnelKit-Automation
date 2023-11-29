@@ -1,20 +1,18 @@
-=== Recover WooCommerce Cart Abandonment, Newsletter, Email Marketing, Marketing Automation By FunnelKit ===
+=== Abandoned Cart Recovery for WooCommerce, Follow Up Emails, Newsletter Builder & Marketing Automation By FunnelKit ===
 Contributors: xlplugins, amans2k
 Tags: cart abandonment, follow up emails, email marketing, email customizer, crm, woocommerce, newsletter, marketing automation
 Requires at least: 5.0
 Tested up to: 6.4.1
 Requires PHP: 7.0
-Stable tag: 2.7.1
+Stable tag: 2.7.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Recover lost revenue with Cart Abandonment Recovery for WooCommerce. Increase retention with Post Purchase Follow-Up Emails. Send beautiful Newsletters.
+Recover lost revenue with Abandoned Cart Recovery for WooCommerce. Increase retention with Post Purchase Follow-Up Emails. Send beautiful Newsletters.
 
 == Description ==
 
 [FunnelKit Automations (formerly Autonami)](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Automations&utm_campaign=WP+Repo) is a powerful WordPress marketing automation engine that allows you to automate your marketing workflows.
-
-> [Grab Special Black Friday / Cyber Monday Offer. Save Upto 55%. Lowest Price Ever.](https://funnelkit.com/exclusive-offer/?utm_source=WordPress&utm_medium=FKA+Grab+Offer&utm_campaign=WP+Readme+BFCM)
 
 You can use FunnelKit Automations to:
 
@@ -334,7 +332,7 @@ Here are some interesting events that FunnelKit Automations provides to engage w
 - **Affiliate Application Approved**: When you mark their application accepted', an automated email can go out to welcome them on board.
 - **Affiliate Digests**: Automate weekly/ monthly emails to update them on their performance during that time. You can also share additional resources to help them further.
 
-**4. [Take actions based on the form fields filled out: Integrates with Gravity Forms, WPForms, Elementor Forms, Thrive Leads, and Contact Form 7](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+Forms&utm_campaign=WP+Repo)**
+**4. [Take actions based on the form fields filled out: Integrates with Gravity Forms, WPForms, Elementor Forms, Thrive Leads, and Contact Form 7](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+Forms&utm_campaign=WP+Repo)
 
 FunnelKit Automations seamlessly integrates with popular form builders.
 
@@ -344,7 +342,7 @@ You can take different actions for different users based on the values in the fo
 
 You can also add a tag, update a custom field, add to a list, and more based on the information they filled out.
 
-**5. [Talk to your favorite CRM: Integrates with ActiveCampaign, ConvertKit, and Drip.](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+CRM&utm_campaign=WP+Repo)**
+**5. [Talk to your favorite CRM: Integrates with ActiveCampaign, ConvertKit, and Drip.](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+CRM&utm_campaign=WP+Repo)
 
 FunnelKit Automations integrates with ActiveCampaign, Drip, and ConvertKit and lets you take actions like - adding a tag, removing a tag, updating custom fields, adding to a list, and so much more.
 
@@ -352,7 +350,7 @@ It allows you to segment your automated campaigns and target your users based on
 
 Consider adding a new subscriber to a Welcome series email automation in your WooCommerce CRM.
 
-**6. [Connects to other third-party applications you love](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+SMS&utm_campaign=WP+Repo)**
+**6. [Connects to other third-party applications you love](https://funnelkit.com/wordpress-marketing-automation-autonami/?utm_source=WordPress&utm_medium=Get+Pro+SMS&utm_campaign=WP+Repo)
 
 **Connect with Twilio and BulkGate for SMS-based campaigns** - According to Sales Cycle, SMS has an **open rate of 98%**, with 90% of messages opened within three minutes.
 
@@ -417,6 +415,11 @@ FunnelKit Automations is 100% self-hosted and fully GDPR compliant.
 
 
 == Change log ==
+
+= 2.7.2 (Nov 28, 2023) =
+* Compatible with WooCommerce 8.3.1
+* Fixed: Automation merge tag - Cart items tag price display issue with tax scenarios, fixed. (#2641)
+* Fixed: Cart abandonment tracking code fix. (#2647)
 
 = 2.7.1 (Nov 17, 2023) =
 * Compatible upto WordPress 6.4.1

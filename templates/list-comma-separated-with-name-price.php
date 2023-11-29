@@ -18,14 +18,15 @@ if ( false !== $cart ) {
 		if ( empty( $product ) || ! $product instanceof WC_Product ) {
 			continue; // don't show items if there is no product
 		}
-		$product_price = isset( $products_price[ $product->get_id() ] ) && ! empty( $products_price[ $product->get_id() ] ) ? " ( " . $products_price[ $product->get_id() ] . " )" : '';
+		$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+		$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 
 		$name = $product->get_name();
 		if ( $product instanceof WC_Product_Variation && false === $exclude_variable_attribute ) {
 			$name .= ' - ' . $product->get_attribute_summary();
 		}
 
-		$product_names_with_price[] = esc_html__( $name ) . $product_price;
+		$product_names_with_price[] = esc_html__( $name ) . " ( " . $line_total . " )";
 	}
 } else {
 	foreach ( $products as $product ) {
@@ -33,14 +34,14 @@ if ( false !== $cart ) {
 		if ( ! $product instanceof WC_Product ) {
 			continue;
 		}
-		$price         = isset( $products_price[ $product->get_id() ] ) && ! empty( $products_price[ $product->get_id() ] ) ? " ( " . $products_price[ $product->get_id() ] . " )" : '';
-		$product_price = BWFAN_Common::get_prices_with_tax( $product, $price );
-		$name          = $product->get_name();
+		$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+		$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
+		$name       = $product->get_name();
 		if ( $product instanceof WC_Product_Variation && false === $exclude_variable_attribute ) {
 			$name .= ' - ' . $product->get_attribute_summary();
 		}
 
-		$product_names_with_price[] = esc_html__( $name ) . $product_price;
+		$product_names_with_price[] = esc_html__( $name ) . " ( " . $line_total . " )";
 	}
 }
 

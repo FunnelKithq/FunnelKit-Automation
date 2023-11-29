@@ -467,10 +467,12 @@ class BWFAN_Abandoned_Cart {
 
 		do_action( 'bwfan_ab_handle_checkout_data_externally', $checkout_data );
 
-		if ( is_array( $checkout_data ) && count( $checkout_data ) > 0 ) {
-			$page_id = $checkout_data['current_page_id'];
+		if ( is_array( $checkout_data ) ) {
+			$page_id = isset( $checkout_data['current_page_id'] ) ? $checkout_data['current_page_id'] : 0;
 			do_action( 'bwfanac_checkout_data', $page_id, $checkout_data, $this->restored_cart_details );
-			$url = get_permalink( $page_id );
+			if ( intval( $checkout_data['current_page_id'] ) > 0 ) {
+				$url = get_permalink( $page_id );
+			}
 		}
 
 		$is_checkout_override = isset( $checkout_data['aero_data'] ) && isset( $checkout_data['aero_data']['wfacp_is_checkout_override'] ) ? $checkout_data['aero_data']['wfacp_is_checkout_override'] : false;

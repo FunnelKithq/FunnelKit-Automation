@@ -53,10 +53,8 @@ if ( is_array( $products ) ) : ?>
 								if ( empty( $product ) || ! $product instanceof WC_Product ) {
 									continue; // don't show items if there is no product
 								}
-								$price          = $item['line_total'];
-								$price_with_tax = BWFAN_Common::get_prices_with_tax( $product, $price );
-								$line_total     = ! empty( $price_with_tax ) ? $price_with_tax : $price;
-
+								$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+								$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 								?>
                                 <div class="bwfan-product-grid-item-3-col bwfan-product-type-cart" style="<?php echo( $n % 3 ? '' : 'margin-right: 0;' ); ?>">
 									<?php echo ( false === $disable_product_thumbnail ) ? wp_kses_post( BWFAN_Common::get_product_image( $product, 'shop_catalog', false, 150 ) ) : ''; //phpcs:ignore WordPress.Security.EscapeOutput ?>
@@ -64,8 +62,6 @@ if ( is_array( $products ) ) : ?>
                                     <p class="price">
                                         <strong>
 											<?php
-											$line_tax   = wc_tax_enabled() && ! empty( $item['line_tax'] ) ? $item['line_tax'] : 0;
-											$line_total += $line_tax;
 											echo BWFAN_Common::price( $line_total, $currency ); //phpcs:ignore WordPress.Security.EscapeOutput
 											?>
                                         </strong>
@@ -82,9 +78,8 @@ if ( is_array( $products ) ) : ?>
 								if ( ! $product instanceof WC_Product ) {
 									continue;
 								}
-								$price          = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : $product->get_price();
-								$price_with_tax = BWFAN_Common::get_prices_with_tax( $product, $price );
-								$line_total     = ! empty( $price_with_tax ) ? $price_with_tax : $price;
+								$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+								$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 								?>
                                 <div class="bwfan-product-grid-item-3-col bwfan-product-type-product" style="<?php echo( $n % 3 ? '' : 'margin-right: 0;' ); ?>">
 									<?php

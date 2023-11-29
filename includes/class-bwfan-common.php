@@ -8551,13 +8551,15 @@ class BWFAN_Common {
 	 * Get product price with tax
 	 *
 	 * @param $product
-	 * @param $price
 	 *
-	 * @return float|mixed|string
+	 * @return float|mixed|string|null
 	 */
-	public static function get_prices_with_tax( $product, $price ) {
+	public static function get_prices_with_tax( $product ) {
+		if ( ! wc_tax_enabled() ) {
+			return $product instanceof WC_Product ? $product->get_price() : 0;
+		}
 		if ( ! $product instanceof WC_Product ) {
-			return $price;
+			return 0;
 		}
 
 		$tax_display_cart = get_option( 'woocommerce_tax_display_cart', '' );
@@ -8568,7 +8570,7 @@ class BWFAN_Common {
 			return wc_get_price_excluding_tax( $product );
 		}
 
-		return $price;
+		return 0;
 	}
 
 	/**

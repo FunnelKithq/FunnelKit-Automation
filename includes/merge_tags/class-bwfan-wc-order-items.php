@@ -43,6 +43,7 @@ class BWFAN_WC_Order_Items extends Merge_Tag_Abstract_Product_Display {
 			$products          = [];
 			$products_quantity = array();
 			$products_price    = array();
+			$tax_display       = get_option( 'woocommerce_tax_display_cart' );
 			foreach ( $items as $item ) {
 				/** added handling with wc product bundle */
 				if ( ! apply_filters( 'woocommerce_order_item_visible', true, $item ) ) {
@@ -52,7 +53,8 @@ class BWFAN_WC_Order_Items extends Merge_Tag_Abstract_Product_Display {
 				$product                                 = $item->get_product();
 				$products[]                              = $product;
 				$products_quantity[ $product->get_id() ] = $item->get_quantity();
-				$products_price[ $product->get_id() ]    = $item['line_total'];
+				$line_total                              = ( 'excl' === $tax_display ) ? BWFAN_Common::get_line_subtotal( $item ) : BWFAN_Common::get_line_subtotal( $item ) + BWFAN_Common::get_line_subtotal_tax( $item );
+				$products_price[ $product->get_id() ]    = $line_total;
 			}
 			$this->products          = $products;
 			$this->products_quantity = $products_quantity;

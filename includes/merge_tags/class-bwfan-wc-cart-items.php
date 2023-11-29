@@ -116,7 +116,7 @@ class BWFAN_WC_Cart_Items extends Merge_Tag_Abstract_Product_Display {
 
 			$line_total = ( 'excl' === $tax_display ) ? BWFAN_Common::get_line_subtotal( $item ) : BWFAN_Common::get_line_subtotal( $item ) + BWFAN_Common::get_line_subtotal_tax( $item );
 
-			$product_price[ $item['data']->get_id() ] = BWFAN_Common::price( $line_total, $currency );
+			$product_price[ $item['data']->get_id() ] = $line_total;
 		}
 
 		$this->cart              = $items;

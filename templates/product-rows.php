@@ -41,9 +41,8 @@ if ( is_array( $products ) ) : ?>
 					if ( empty( $product ) || ! $product instanceof WC_Product ) {
 						continue; // don't show items if there is no product
 					}
-					$price          = $item['line_total'];
-					$price_with_tax = BWFAN_Common::get_prices_with_tax( $product, $price );
-					$line_total     = ! empty( $price_with_tax ) ? $price_with_tax : $price;
+					$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+					$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 					?>
                     <tr>
 						<?php
@@ -59,8 +58,6 @@ if ( is_array( $products ) ) : ?>
                         </td>
                         <td align="right" class="last" width="100">
 							<?php
-							$line_tax   = wc_tax_enabled() && ! empty( $item['line_tax'] ) ? $item['line_tax'] : 0;
-							$line_total += $line_tax;
 							echo wp_kses_post( BWFAN_Common::price( $line_total, $currency ) );
 							?>
 							<?php if ( $suffix && wc_tax_enabled() ): ?>
@@ -74,9 +71,8 @@ if ( is_array( $products ) ) : ?>
 					if ( ! $product instanceof WC_Product ) {
 						continue;
 					}
-					$price          = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : $product->get_price();
-					$price_with_tax = BWFAN_Common::get_prices_with_tax( $product, $price );
-					$line_total     = ! empty( $price_with_tax ) ? $price_with_tax : $price;
+					$price      = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+					$line_total = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 					?>
                     <tr>
 						<?php

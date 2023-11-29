@@ -66,15 +66,13 @@ if ( wc_tax_enabled() ) {
 				if ( empty( $product ) || ! $product instanceof WC_Product ) {
 					continue; // don't show items if there is no product
 				}
-
 				if ( false === BWFAN_Merge_Tag_Loader::get_data( 'is_preview' ) ) {
 					$subtotal     += BWFAN_Common::get_line_subtotal( $item );
 					$subtotal_tax += BWFAN_Common::get_line_subtotal_tax( $item );
-					$line_total   = ( 'excl' === $tax_display ) ? BWFAN_Common::get_line_subtotal( $item ) : BWFAN_Common::get_line_subtotal( $item ) + BWFAN_Common::get_line_subtotal_tax( $item );
+					$price        = isset( $products_price[ $product->get_id() ] ) ? $products_price[ $product->get_id() ] : null;
+					$line_total   = is_null( $price ) ? BWFAN_Common::get_prices_with_tax( $product ) : $price;
 				} else {
-					$price          = $product->get_price();
-					$price_with_tax = BWFAN_Common::get_prices_with_tax( $product, $price );
-					$line_total     = ! empty( $price_with_tax ) ? $price_with_tax : $price;
+					$line_total = BWFAN_Common::get_prices_with_tax( $product );
 				}
 				$total += $line_total;
 				?>
